@@ -1,0 +1,12 @@
+
+<div class="main-container" [ngClass]="{ 'dark-theme': isDarkTheme }">
+  <div class="px-8" >
+    <app-navbar>
+    </app-navbar>
+    <button (click)="toggleTheme()" class="btn btn-light theme-toggle">
+      <i [class]="isDarkTheme ? 'bi bi-moon-fill' : 'bi bi-sun-fill'"></i>
+    </button>
+  </div>
+  <router-outlet></router-outlet>
+  </div>
+
