@@ -14,5 +14,7 @@ namespace AngularApp1.Server.Context
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<BlogImage> BlogImages { get; set; }
+
     }
 }

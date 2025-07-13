@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AngularApp1.Server.Models.Domain
+namespace AngularApp1.Server.Models.DTOS
 {
-    public class BlogPost
+    public class AddblogPostRequestDto
     {
-        [Required]
-        public required Guid Id { get; set; }
+       
         [Required]
         public required string Title { get; set; }
         [Required]
@@ -23,6 +22,6 @@ namespace AngularApp1.Server.Models.Domain
         [Required]
         public required bool IsVisible { get; set; }
 
-        public ICollection<Category> Categories { get; set; }
+        public Guid[] Categories { get; set; }
     }
 }

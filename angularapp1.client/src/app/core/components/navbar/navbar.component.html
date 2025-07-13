@@ -9,20 +9,16 @@
         <li class="nav-item">
           <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#">Pricing</a>
-        </li>
+        
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Admin
           </a>
           <ul class="dropdown-menu bg-dark">
             <li><a class="dropdown-item text-white" [routerLink]="['admin/categories']">Categories</a></li>
-            <li><a class="dropdown-item text-white" href="#">Another action</a></li>
-            <li><a class="dropdown-item text-white" href="#">Something else here</a></li>
+            <li><a class="dropdown-item text-white" [routerLink]="['admin/blogposts']">BlogPosts</a></li>
+            
           </ul>
         </li>
       </ul>
