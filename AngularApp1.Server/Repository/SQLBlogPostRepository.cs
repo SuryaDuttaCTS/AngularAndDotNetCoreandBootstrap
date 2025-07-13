@@ -74,6 +74,12 @@ namespace AngularApp1.Server.Repository
             return blogpost;
         }
 
+        public async Task<BlogPost?> GetByUrlHandleAsync(string urlHandle)
+        {
+           return await _dbcontext.BlogPosts.Include(x => x.Categories)
+                .FirstOrDefaultAsync(b => b.UrlHandle == urlHandle);
+        }
+
         public async Task<BlogPost?> UpdateBlogPostAsync(BlogPost updateBlogPost)
         {
             var blogpost = await _dbcontext.BlogPosts.Include(x=>x.Categories)

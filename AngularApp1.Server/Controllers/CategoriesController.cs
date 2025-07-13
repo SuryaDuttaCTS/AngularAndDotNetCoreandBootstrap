@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using AngularApp1.Server.Models.DTOS;
 using AngularApp1.Server.Models.Domain;
 using AngularApp1.Server.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AngularApp1.Server.Controllers
 {
@@ -32,7 +33,7 @@ namespace AngularApp1.Server.Controllers
         }
 
         [HttpGet]
-
+        [Authorize(Roles ="Writer")]
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _categoriesRepository.GetAllCategoriesAsync();

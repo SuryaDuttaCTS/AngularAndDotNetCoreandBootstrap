@@ -9,6 +9,7 @@ using AngularApp1.Server.Context;
 using AngularApp1.Server.Models.Domain;
 using AngularApp1.Server.Repository;
 using AngularApp1.Server.Models.DTOS;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AngularApp1.Server.Controllers
 {
@@ -101,6 +102,7 @@ namespace AngularApp1.Server.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<ActionResult> PutBlogPost([FromRoute]Guid id, UpdateBlogPostDto request)
         {
             //from Dto to domain model
@@ -166,6 +168,7 @@ namespace AngularApp1.Server.Controllers
         // POST: api/BlogPosts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles ="Writer")]
         public async Task<ActionResult<BlogPost>> PostBlogPost(AddblogPostRequestDto blogPost)
         {
             
@@ -198,6 +201,7 @@ namespace AngularApp1.Server.Controllers
         // DELETE: api/BlogPosts/5
         [HttpDelete]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteBlogPost([FromRoute] Guid id)
         {
             var blogpost = await _context.DeleteBlogPostAsync(id);
@@ -223,6 +227,37 @@ namespace AngularApp1.Server.Controllers
             return Ok(response);
         }
 
-       
+       [HttpGet]
+       [Route("{urlHandle}")]
+       public async Task<ActionResult<BlogPostDto>> GetBlogPostByUrl([FromRoute] string urlHandle)
+       {
+            var blogpost = await _context.GetByUrlHandleAsync(urlHandle);
+           if (blogpost == null)
+           {
+               return NotFound();
+           }
+
+           var response = new BlogPostDto
+           {
+               Id = blogpost.Id,
+               Author = blogpost.Author,
+               Content = blogpost.Content,
+               FeaturedImageUrl = blogpost.FeaturedImageUrl,
+               IsVisible = blogpost.IsVisible,
+               DateCreated = blogpost.DateCreated,
+               ShortDescription = blogpost.ShortDescription,
+               Title = blogpost.Title,
+               UrlHandle = blogpost.UrlHandle,
+               Categories = blogpost.Categories.Select(
+                   c => new CategoryDto
+                   {
+                       Id = c.Id,
+                       Name = c.Name,
+                       UrlHandle = c.UrlHandle
+                   }).ToList()
+           };
+
+           return Ok(response);
+       }
     }
 }

@@ -10,5 +10,7 @@ namespace AngularApp1.Server.Repository
         Task<BlogPost> CreateBlogPostAsync(AddblogPostRequestDto createblogPostRequestDto);
         Task<BlogPost?> UpdateBlogPostAsync(BlogPost updateBlogPost);
         Task<BlogPost?> DeleteBlogPostAsync(Guid id);
+
+        Task<BlogPost?> GetByUrlHandleAsync(string urlHandle);
     }
 }
